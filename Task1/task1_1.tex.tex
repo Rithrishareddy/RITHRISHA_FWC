@@ -38,6 +38,7 @@
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 \begin{document}
+\begin{enumerate}
 \pagestyle{empty} % Start with empty page style
 \thispagestyle{fancy} % Apply fancy style only to the first page 
 \renewcommand{\headrulewidth}{0pt} % Remove header rule
@@ -76,14 +77,14 @@
   \draw[chapterblue, line width=2pt] (0,0) -- (\linewidth,0);
 \end{tikzpicture}
 
-    }} \\
+        }}
     \end{center}
-    \vspace{2em}
+   \vspace{2em}
 
 % Quote
 \begin{center}
 \vspace{-3em}
-    \textit{\textcolor{cyan!70!blue}{There is perhaps nothing which so occupies the\\
+\item\textit{\textcolor{cyan!70!blue}{There is perhaps nothing which so occupies the\\
     middle position of mathematics as trigonometry.}}\\
     --- \textit{J.F. Herbart (1890)}
 \end{center}
@@ -97,7 +98,7 @@
 % First example using minipage
 \begin{minipage}[t]{0.58\textwidth}
 \vspace{-5em}
-1. Suppose the students of a school are visiting Qutub Minar. Now, if a student is looking at the top of the Minar, a right triangle can be imagined to be made, as shown in \textbf{Fig 8.1}. Can the student find out the height of the Minar, without actually measuring it?
+\item 1. Suppose the students of a school are visiting Qutub Minar. Now, if a student is looking at the top of the Minar, a right triangle can be imagined to be made, as shown in \textbf{Fig 8.1}. Can the student find out the height of the Minar, without actually measuring it?
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.38\textwidth}
@@ -113,7 +114,7 @@
 \vspace{-8em}
 \begin{minipage}[t]{0.58\textwidth}
 \vspace{5em}
-2. Suppose a  is sitting on the balcony of her house located on the bank of a river. She is looking down at a flower pot placed on a stair of a temple situated nearby on the other bank of the river. A right triangle is imagined to be made in this situation as shown in \textbf{Fig. 8.2}. If you know the height at which the person is sitting, can you find the width of the river?
+\item 2. Suppose a  is sitting on the balcony of her house located on the bank of a river. She is looking down at a flower pot placed on a stair of a temple situated nearby on the other bank of the river. A right triangle is imagined to be made in this situation as shown in \textbf{Fig. 8.2}. If you know the height at which the person is sitting, can you find the width of the river?
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.38\textwidth}
@@ -122,5 +123,6 @@
     \includegraphics[width=0.95\textwidth]{fig8_2.png} \\
     \textbf{Fig. 8.2}
 \end{minipage}
+\end{enumerate}
 
 \end{document}
