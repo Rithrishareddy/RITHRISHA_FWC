@@ -1,98 +1,163 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[12pt]{article}
 \usepackage{graphicx}
-\usepackage{amsmath}
-\usepackage{geometry}
-\usepackage{amsmath, amssymb}
-\usepackage{float}
+\usepackage[margin=1in]{geometry}
 \usepackage{caption}
-\usepackage{subcaption}
 \usepackage{xcolor}
-\usepackage{fancyhdr}
-\usepackage{datetime2}
-\usepackage{pgfplots}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{courier}
 
-\definecolor{darkskyblue}{rgb}{0.0, 0.5, 1.0}
-\definecolor{skyblue}{RGB}{135, 206, 235}
-\usepackage{wrapfig}
-\usepackage{circuitikz}
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=\color{gray!10},
+  frame=single,
+  breaklines=true,
+  captionpos=b
+}
 
-\geometry{a4paper, top=0.7in, left=1in, right=1in, bottom=1in}
+\setlength{\columnsep}{1cm}
 
 \begin{document}
 
-\pagestyle{empty} % Start with empty page style
-
-\thispagestyle{fancy} % Apply fancy style only to the first page
-\fancyhf{} % Clear header and footer
-\renewcommand{\headrulewidth}{0pt} % Remove header rule
-
-\fancyhead[L]{% Left header
- \includegraphics[width=8cm, height=1.7cm]{1.png} % Adjust dimensions
-}
-\fancyhead[R]{% Right header
-    Name: S.Rithrisha reddy\\
-    Batch: COMETFWC028 \\
-    Date: 27 May 2025 
-}
-
-\vspace{10cm}
-\begin{center}
-   
-    {\LARGE \textbf{\textcolor{darkskyblue}{\\  GATE QUESTION \\ IN 2008 Q08}}}
-\end{center}
-\vspace{-1cm} %adjust vertical space
-
-\section*{\textcolor{blue}{\\Question}}
-
-\begin{document}
-
-\noindent
-\textbf{Q.8} \\
-The minimal sum-of-products expression for the logic function $f$ represented by the given Karnaugh map is
-
-\bigskip
-
-\noindent
-\textbf{K-map:}
+% Title Block
+\begin{figure}[H]
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{iiitb_comet.jpeg} % Replace with your image name
+    \end{minipage} \hfill
+    \begin{minipage}{0.45\textwidth}
+        \textbf{Name: S. Rithrisha Reddy} \\
+        \textbf{Batch: COMETFWC028} \\
+        \textbf{Date: 27 May 2025}
+    \end{minipage}
+\end{figure}
 
 \begin{center}
-    \includegraphics[width=0.5\textwidth]{kmap.png}
+    {\LARGE \textbf{\textcolor{cyan}{GATE 2008, ECE Question Number 8}}}
 \end{center}
+\vspace{1em}
 
-\bigskip
+\begin{multicols}{2}
 
-\noindent
-(A) $QS + PR\overline{S} + PQ\overline{R} + PRS + PQR$ \\
-(B) $\overline{Q}S + PRS + PQ\overline{R} + PRS + PQR$ \\
-(C) $PR\overline{S} + P\overline{Q}R + PRS + PQ\overline{R}$ \\
-(D) $\overline{P}RS + PQ\overline{R} + PRS + P\overline{Q}R$ \\
+\noindent\textbf{Abstract} \\[0.5em]
+This project implements and verifies a logic function derived from a GATE 2008 Karnaugh map (K-map) question using a Raspberry Pi Pico and basic components such as push buttons and an LED. The function is realized in hardware and validated through practical observation.
 
-\bigskip
-
-\noindent
-\textbf{Answer:} (A)
-
-\bigskip
-
-\noindent
-\textbf{Explanation:} \\
-Analyzing the given Karnaugh map:
+\vspace{1em}
+\noindent\textbf{1. Question and Options}
 \begin{itemize}
-    \item We identify adjacent 1s and group them into the largest possible clusters (octets, quads, pairs).
-    \item The largest groups formed are:
-    \begin{itemize}
-        \item A group covering RS = 01 with PQ = 00, 01, 11 $\rightarrow QS$.
-        \item A group covering PQ = 01, RS = 11, 10 $\rightarrow PR\overline{S}$.
-        \item A group covering PQ = 01 and 11 with RS = 01 $\rightarrow PQ\overline{R}$.
-        \item A group covering PQ = 11, RS = 01, 11 $\rightarrow PRS$.
-        \item A group covering PQ = 11 with RS = 01 $\rightarrow PQR$.
-    \end{itemize}
-    \item Combining these terms gives:
-    \[
-    QS + PR\overline{S} + PQ\overline{R} + PRS + PQR
-    \]
-    which matches option (A).
+  \item[(A)] QS + PRS + PQR + PRS + PQR
+  \item[(B)] QS + PRS + PQR + PRS + PQR
+  \item[(C)] PRS + PQR + PRS + PQR
+  \item[(D)] PRS + PQR + PRS + PQR
+\end{itemize}
+\textbf{Correct Answer: (A)}
+
+\vspace{1em}
+\noindent\textbf{2. Explanation and Simplification}
+\begin{itemize}
+    \item Group RS = 01 with PQ = 00, 01, 11 $\rightarrow$ QS
+    \item Group PQ = 01, RS = 11, 10 $\rightarrow$ PRS
+    \item Group PQ = 01 and 11 with RS = 01 $\rightarrow$ PQR
+    \item Group PQ = 11, RS = 01, 11 $\rightarrow$ PRS
+    \item Group PQ = 11 with RS = 01 $\rightarrow$ PQR
+\end{itemize}
+\[
+f = QS + PRS + PQR + PRS + PQR
+\]
+
+\vspace{1em}
+\noindent\textbf{3. Components}
+\begin{table}[H]
+\small
+\centering
+\begin{tabular}{|p{4.2cm}|c|}
+\hline
+\textbf{Component} & \textbf{Qty} \\
+\hline
+Raspberry Pi Pico & 1 \\
+Push Buttons (P, Q, R, S) & 4 \\
+LED for Output f & 1 \\
+Resistors (220$\Omega$ + 10k$\Omega$) & 5 \\
+Breadboard & 1 \\
+Jumper Wires & 12 \\
+Laptop with Thonny IDE & 1 \\
+\hline
+\end{tabular}
+\caption*{Table 1: List of components used}
+\end{table}
+
+\vspace{1em}
+\noindent\textbf{4. Setup and Connections}
+\begin{itemize}
+    \item Connect P to GP14, Q to GP15, R to GP16, and S to GP17.
+    \item Connect the output LED to GP13 with a 220$\Omega$ resistor.
+    \item Use 10k$\Omega$ pull-down resistors for each button input.
+    \item Connect 3.3V and GND from the Pico board.
 \end{itemize}
 
+\vspace{1em}
+\noindent\textbf{5. Logic Summary}
+\begin{itemize}
+    \item Inputs: P, Q, R, S (pressed = 1)
+    \item Logic Expression: $f = QS + PRS + PQR + PRS + PQR$
+    \item Output f is HIGH (LED ON) when expression evaluates to 1
+\end{itemize}
+
+\vspace{1em}
+\noindent\textbf{6. GPIO Pin Mapping}
+\begin{itemize}
+    \item \textbf{P} – GP14 (Input)
+    \item \textbf{Q} – GP15 (Input)
+    \item \textbf{R} – GP16 (Input)
+    \item \textbf{S} – GP17 (Input)
+    \item \textbf{LED (f)} – GP13 (Output)
+\end{itemize}
+
+\vspace{1em}
+\noindent\textbf{7. Truth Table and Verification}
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+P & Q & R & S & f \\
+\hline
+0 & 0 & 0 & 1 & 1 \\
+0 & 1 & 0 & 1 & 1 \\
+0 & 1 & 1 & 1 & 1 \\
+1 & 1 & 0 & 1 & 1 \\
+1 & 1 & 1 & 0 & 1 \\
+1 & 0 & 1 & 1 & 1 \\
+\hline
+\end{tabular}
+\caption*{Table 2: Input combinations that satisfy f = 1}
+\end{table}
+
+\vspace{1em}
+\noindent\textbf{8. Experiment Photo}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{output.jpeg}
+    \caption*{Figure: Implementation using Raspberry Pi Pico and breadboard}
+\end{figure}
+
+\vspace{1em}
+\noindent\textbf{9. Procedure to Upload Code (Pico2W)}
+\begin{enumerate}
+    \item Connect Pico 2W to USB while holding BOOTSEL.
+    \item Drag and drop MicroPython firmware to mount as drive.
+    \item Open Thonny IDE and select Raspberry Pi Pico as interpreter.
+    \item Write Python code to implement the SOP expression using GPIO inputs and output.
+    \item Run and validate logic using LED for different input conditions.
+\end{enumerate}
+
+\vspace{1em}
+\noindent\textbf{10. Conclusion} \\
+This experiment successfully validates the SOP logic function $f = QS + PRS + PQR + PRS + PQR$ from a Karnaugh map. The LED output corresponded to the correct truth table outputs, confirming the practical implementation using Raspberry Pi Pico.
+
+\end{multicols}
 \end{document}
-000000
