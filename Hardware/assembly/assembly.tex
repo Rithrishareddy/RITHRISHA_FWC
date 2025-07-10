@@ -1,0 +1,161 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{caption}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{url}
+
+\setlength{\columnsep}{1cm}
+
+\begin{document}
+
+% Title Block
+\begin{figure}[H]
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{iiitb_comet.jpeg} % Replace with your image name
+    \end{minipage} \hfill
+    \begin{minipage}{0.45\textwidth}
+        \textbf{Name: S. Rithrisha Reddy} \\
+        \textbf{Batch: COMETFWC028} \\
+        \textbf{Date: 27 May 2025}
+    \end{minipage}
+\end{figure}
+
+\begin{center}
+    {\LARGE \textbf{\textcolor{cyan}{GATE 2008, ECE Question Number 8}}}
+\end{center}
+\vspace{1em}
+
+\begin{multicols}{2}
+
+\noindent\textbf{Abstract} \\[0.5em]
+This project implements and verifies a logic function derived from a GATE 2008 Karnaugh map (K-map) question using a Raspberry Pi Pico and basic components such as push buttons and an LED. The function is realized in hardware and validated through practical observation.
+
+\vspace{1em}
+\noindent\textbf{1. Question and Options}
+\begin{itemize}
+  \item[(A)] QS + PRS + PQR + PRS + PQR
+  \item[(B)] QS + PRS + PQR + PRS + PQR
+  \item[(C)] PRS + PQR + PRS + PQR
+  \item[(D)] PRS + PQR + PRS + PQR
+\end{itemize}
+\textbf{Correct Answer: (A)}
+
+\vspace{1em}
+\noindent\textbf{2. Explanation and Simplification}
+\begin{itemize}
+    \item Group RS = 01 with PQ = 00, 01, 11 $\rightarrow$ QS
+    \item Group PQ = 01, RS = 11, 10 $\rightarrow$ PRS
+    \item Group PQ = 01 and 11 with RS = 01 $\rightarrow$ PQR
+    \item Group PQ = 11, RS = 01, 11 $\rightarrow$ PRS
+    \item Group PQ = 11 with RS = 01 $\rightarrow$ PQR
+\end{itemize}
+\[
+f = QS + PRS + PQR + PRS + PQR
+\]
+
+\vspace{1em}
+\noindent\textbf{3. Components}
+\begin{table}[H]
+\small
+\centering
+\begin{tabular}{|p{4.2cm}|c|}
+\hline
+\textbf{Component} & \textbf{Qty} \\
+\hline
+Raspberry Pi Pico & 1 \\
+Push Buttons (P, Q, R, S) & 4 \\
+LED for Output f & 1 \\
+Resistors (220$\Omega$ + 10k$\Omega$) & 5 \\
+Breadboard & 1 \\
+Jumper Wires & 12 \\
+Laptop with Thonny IDE & 1 \\
+\hline
+\end{tabular}
+\caption*{Table 1: List of components used}
+\end{table}
+
+\vspace{1em}
+\noindent\textbf{4. Setup and Connections}
+\begin{itemize}
+    \item Connect P to GP14, Q to GP15, R to GP16, and S to GP17.
+    \item Connect the output LED to GP13 with a 220$\Omega$ resistor.
+    \item Use 10k$\Omega$ pull-down resistors for each button input.
+    \item Connect 3.3V and GND from the Pico board.
+\end{itemize}
+
+\vspace{1em}
+\noindent\textbf{5. Logic Summary}
+\begin{itemize}
+    \item Inputs: P, Q, R, S (pressed = 1)
+    \item Logic Expression: $f = QS + PRS + PQR + PRS + PQR$
+    \item Output f is HIGH (LED ON) when expression evaluates to 1
+\end{itemize}
+
+\vspace{1em}
+\noindent\textbf{6. GPIO Pin Mapping}
+\begin{itemize}
+    \item \textbf{P} – GP14 (Input)
+    \item \textbf{Q} – GP15 (Input)
+    \item \textbf{R} – GP16 (Input)
+    \item \textbf{S} – GP17 (Input)
+    \item \textbf{LED (f)} – GP13 (Output)
+\end{itemize}
+
+\vspace{1em}
+\noindent\textbf{7. Truth Table and Verification}
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+P & Q & R & S & f \\
+\hline
+0 & 0 & 0 & 1 & 1 \\
+0 & 1 & 0 & 1 & 1 \\
+0 & 1 & 1 & 1 & 1 \\
+1 & 1 & 0 & 1 & 1 \\
+1 & 1 & 1 & 0 & 1 \\
+1 & 0 & 1 & 1 & 1 \\
+\hline
+\end{tabular}
+\caption*{Table 2: Input combinations that satisfy f = 1}
+\end{table}
+
+\vspace{1em}
+\noindent\textbf{8. Experiment Photo}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{output.jpeg}
+    \caption*{Figure: Implementation using Raspberry Pi Pico and breadboard}
+\end{figure}
+
+\vspace{1em}
+\noindent\textbf{9. Procedure to Upload Code (Pico2W)}
+\begin{enumerate}
+    \item Connect Pico 2W to USB while holding BOOTSEL.
+    \item Drag and drop MicroPython firmware to mount as a USB drive.
+    \item Open Thonny IDE and select Raspberry Pi Pico as the interpreter.
+    \item Write and upload the logic implementation code.
+    \item Run and validate the LED output based on button inputs.
+\end{enumerate}
+
+\vspace{1em}
+\noindent\textbf{10. Conclusion} \\
+This experiment successfully validates the SOP logic function $f = QS + PRS + PQR + PRS + PQR$ from a Karnaugh map. The LED output matched expected truth table values, confirming proper logic implementation using Raspberry Pi Pico and GPIO inputs.
+
+\vspace{1em}
+\noindent\textbf{11. References}
+\begin{itemize}
+    \item GitHub Repository: \url{https://github.com/Rithrishareddy/RITHRISHA_FWC/tree/main/Hardware}
+    \item GATE 2008 ECE Question Paper
+    \item Raspberry Pi Pico Documentation
+\end{itemize}
+
+\end{multicols}
+\end{document}
