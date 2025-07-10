@@ -1,0 +1,153 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{caption}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{courier}
+
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=\color{gray!10},
+  frame=single,
+  breaklines=true,
+  captionpos=b
+}
+
+\setlength{\columnsep}{1cm}
+
+\begin{document}
+
+% Title Block
+\begin{figure}[H]
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{iiitb_comet.jpeg} % Replace with your image
+    \end{minipage} \hfill
+    \begin{minipage}{0.45\textwidth}
+        \textbf{Name: S. Rithrisha Reddy} \\
+        \textbf{Batch: COMETFWC028} \\
+        \textbf{Date: 27 May 2025}
+    \end{minipage}
+\end{figure}
+
+\begin{center}
+    {\LARGE \textbf{\textcolor{cyan}{GATE 2009, ECE Question Number 36}}}
+\end{center}
+
+\begin{multicols}{2}
+
+\vspace{1em}
+\noindent\textbf{Abstract} \\
+This project implements and verifies a logic equation derived from a GATE 2009 ECE question using AVR-GCC and physical hardware (ATmega328P). Logical analysis determines the value of variable \(Z\), and the expression is validated using an LED output.
+
+\vspace{1em}
+\noindent\textbf{1. Question and Simplification}
+\begin{itemize}
+    \item Given: \( X = 1 \)
+    \item Expression: \( (X + Z)(Y + (Z + Y))(X + Z(X + Y)) = 1 \)
+    \item Simplifies to: \( (1)(Y + Z)(1 + Z(1 + Y)) = 1 \)
+    \item Solving: \( Z(1 + Y) = 0 \Rightarrow Z = 0 \)
+\end{itemize}
+\textbf{Correct Answer: (D) Z = 0}
+
+\vspace{1em}
+\noindent\textbf{2. Components}
+\begin{table}[H]
+\small
+\centering
+\begin{tabular}{|p{4.2cm}|c|}
+\hline
+\textbf{Component} & \textbf{Qty} \\
+\hline
+ATmega328P / AVR Board & 1 \\
+Push Buttons (X, Y, Z) & 3 \\
+LED for Output & 1 \\
+Resistors (220$\Omega$, 10k$\Omega$) & 4 \\
+Breadboard & 1 \\
+Jumper Wires & 10 \\
+Laptop with AVR-GCC & 1 \\
+\hline
+\end{tabular}
+\caption*{Table 1: Components used}
+\end{table}
+
+\vspace{1em}
+\noindent\textbf{3. Setup and Connections}
+\begin{itemize}
+    \item Connect buttons to PD0 (X), PD1 (Y), PD2 (Z).
+    \item Connect LED to PB0 with 220$\Omega$ resistor.
+    \item Use 10k$\Omega$ pull-down resistors for each button.
+    \item Ensure common GND and VCC rails.
+\end{itemize}
+
+\vspace{1em}
+\noindent\textbf{4. Logic Summary}
+\begin{itemize}
+    \item Inputs: X, Y, Z (via push buttons)
+    \item Evaluated Expression: \( (X + Z)(Y + Z)(1 + Z(1 + Y)) \)
+    \item Output (LED) glows only if the expression evaluates to 1
+\end{itemize}
+
+\vspace{1em}
+\noindent\textbf{5. Pin Mapping}
+\begin{itemize}
+    \item \textbf{X} – PD0 (Input)
+    \item \textbf{Y} – PD1 (Input)
+    \item \textbf{Z} – PD2 (Input)
+    \item \textbf{LED} – PB0 (Output)
+\end{itemize}
+
+\end{multicols}
+
+\section*{6. Verification Procedure}
+\begin{enumerate}
+    \item Set up the circuit on a breadboard using the components listed.
+    \item Ensure pull-down resistors are connected properly for X, Y, and Z inputs.
+    \item Burn the compiled AVR-GCC C code into the ATmega328P microcontroller.
+    \item Toggle the buttons to test various input combinations.
+    \item Observe LED state for each combination.
+    \item Verify output matches expected logic from truth table.
+\end{enumerate}
+
+\section*{7. Analysis and Results}
+
+\subsection*{7.1 Sample Truth Table}
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+X & Y & Z & Output \\
+\hline
+1 & 0 & 0 & 1 \\
+1 & 1 & 0 & 1 \\
+1 & 0 & 1 & 0 \\
+1 & 1 & 1 & 0 \\
+\hline
+\end{tabular}
+\caption*{Table 2: Logic validation for Z}
+\end{table}
+
+\subsection*{7.2 Circuit Implementation}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\linewidth]{output1.jpeg}
+\caption*{Figure: Practical Circuit Using AVR and Breadboard}
+\end{figure}
+
+\section*{8. Conclusion}
+This project successfully demonstrated the evaluation of a logical expression from GATE 2009 using AVR hardware and C programming. The experimental LED output confirmed that the function outputs 1 only when \( Z = 0 \), validating the theoretical simplification.
+
+\section*{9. References}
+\begin{itemize}
+    \item GitHub Repository: \url{https://github.com/Rithrishareddy/RITHRISHA_FWC/tree/main/Hardware}
+    \item GATE 2009 ECE Question Paper
+    \item AVR-GCC Documentation and Datasheets
+\end{itemize}
+
+\end{document}
