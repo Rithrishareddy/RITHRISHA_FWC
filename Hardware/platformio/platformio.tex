@@ -1,0 +1,128 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{caption}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{url}
+
+\setlength{\columnsep}{1cm}
+
+\begin{document}
+
+% Title Block
+\begin{figure}[H]
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{iiitb_comet.jpeg} % <-- Replace with actual image
+    \end{minipage} \hfill
+    \begin{minipage}{0.45\textwidth}
+        \textbf{Name: S.Rithrishareddy} \\
+        \textbf{Batch: COMETFWC028} \\
+        \textbf{Date: 06 July 2025}
+    \end{minipage}
+\end{figure}
+
+\begin{center}
+    {\LARGE \textbf{\textcolor{cyan}{GATE 2009, EEE Question Number 13}}}
+\end{center}
+\vspace{1em}
+
+\begin{multicols}{2}
+
+\noindent\textbf{Abstract} \\[0.5em]
+This project demonstrates the behavior of the NAND gate using a Raspberry Pi Pico2W, push buttons as logic inputs, and an LED as output indicator. It validates the concept that NAND is a universal gate, from which all other logic gates can be built.
+
+\vspace{1em}
+\noindent\textbf{1. Components}
+\begin{table}[H]
+\small
+\centering
+\begin{tabular}{|p{4.2cm}|c|}
+\hline
+\textbf{Component} & \textbf{Qty} \\
+\hline
+Raspberry Pi Pico2W & 1 \\
+Push Buttons & 2 \\
+LED & 1 \\
+220$\Omega$ Resistors & 3 \\
+Breadboard & 1 \\
+Jumper Wires & 10 \\
+Laptop with Thonny IDE & 1 \\
+\hline
+\end{tabular}
+\caption*{Table: Components used}
+\end{table}
+
+\vspace{1em}
+\noindent\textbf{2. Setup Instructions}
+\begin{itemize}
+    \item Connect button A to GPIO14 with pull-down configuration.
+    \item Connect button B to GPIO15 similarly.
+    \item Connect the LED anode to GPIO13 through a 220$\Omega$ resistor.
+    \item Common ground is shared between both push buttons and the LED cathode.
+    \item Use Thonny IDE to upload the NAND logic implementation.
+\end{itemize}
+
+\vspace{1em}
+\noindent\textbf{3. NAND Gate Logic}
+\[
+\text{NAND}(A, B) = \overline{A \cdot B}
+\]
+\[
+\text{Output} = 
+\begin{cases}
+1 & \text{if } A = 0 \text{ or } B = 0 \\
+0 & \text{if } A = 1 \text{ and } B = 1
+\end{cases}
+\]
+
+\end{multicols}
+
+\vspace{1em}
+\noindent\textbf{4. Observation Table}
+\[
+\begin{array}{|c|c|c|}
+\hline
+A & B & LED (Output) \\
+\hline
+0 & 0 & 1 \\
+0 & 1 & 1 \\
+1 & 0 & 1 \\
+1 & 1 & 0 \\
+\hline
+\end{array}
+\]
+
+\vspace{2em}
+\noindent\textbf{5. Circuit Image} \\
+\begin{center}
+\includegraphics[width=0.6\linewidth]{out.jpg} 
+\end{center}
+
+\vspace{1em}
+\noindent\textbf{6. Applications of NAND Gate}
+\begin{itemize}
+    \item Used to implement all other basic logic gates (AND, OR, NOT).
+    \item Fundamental building block in digital electronics and processor design.
+    \item Used in flip-flops, counters, and memory circuits like SRAM.
+    \item Employed in Arithmetic Logic Units (ALUs) for logical operations.
+\end{itemize}
+
+\vspace{1em}
+\noindent\textbf{7. Conclusion}
+
+This hardware implementation successfully verifies the theoretical behavior of a NAND gate using Raspberry Pi Pico2W and basic electronic components. NAND, being a universal gate, is a crucial part of digital design. Understanding and demonstrating it physically enhances our knowledge of logic gate operations and their importance in digital circuit design.
+
+\vspace{1em}
+\noindent\textbf{8. References}
+\begin{itemize}
+    \item GitHub Repository: \url{https://github.com/Rithrishareddy/RITHRISHA_FWC/tree/main/Hardware}
+    \item Raspberry Pi Pico Documentation
+    \item GATE 2009 EEE Question Paper
+\end{itemize}
+
+\end{document}
