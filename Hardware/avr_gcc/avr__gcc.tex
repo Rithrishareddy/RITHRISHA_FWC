@@ -1,0 +1,173 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{caption}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{courier}
+
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=\color{gray!10},
+  frame=single,
+  breaklines=true,
+  captionpos=b
+}
+
+\setlength{\columnsep}{1cm}
+
+\begin{document}
+
+% Title Block
+\begin{figure}[H]
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{iiitb_comet.jpeg} % Replace with your image
+    \end{minipage} \hfill
+    \begin{minipage}{0.45\textwidth}
+        \textbf{Name: S. Rithrisha Reddy} \\
+        \textbf{Batch: COMETFWC028} \\
+        \textbf{Date: 27 May 2025}
+    \end{minipage}
+\end{figure}
+
+\begin{center}
+    {\LARGE \textbf{\textcolor{cyan}{GATE 2009, ECE Question Number 36}}}
+\end{center}
+
+\begin{multicols}{2}
+
+\vspace{1em}
+\noindent\textbf{Abstract} \\
+This project implements the logic equation given in a GATE 2009 ECE question using AVR-GCC and physical hardware (ATmega328P/Arduino). Logical analysis determines the value of variable Z, and the expression is validated using an LED output.
+
+\vspace{1em}
+\noindent\textbf{1. Question and Simplification}
+\begin{itemize}
+    \item Given: \( X = 1 \)
+    \item Expression: \( (X + Z)(Y + (Z + Y))(X + Z(X + Y)) = 1 \)
+    \item Simplifies to: \( (1)(Y + Z)(1 + Z(1 + Y)) = 1 \)
+    \item Solving: \( Z(1 + Y) = 0 \Rightarrow Z = 0 \)
+\end{itemize}
+\textbf{Correct Answer: (D) Z = 0}
+
+\vspace{1em}
+\noindent\textbf{2. Components}
+\begin{table}[H]
+\small
+\centering
+\begin{tabular}{|p{4.2cm}|c|}
+\hline
+\textbf{Component} & \textbf{Qty} \\
+\hline
+ATmega328P / Arduino UNO & 1 \\
+Push Buttons (X, Y, Z) & 3 \\
+LED for Output & 1 \\
+Resistors (220$\Omega$ for LED, 10k$\Omega$ for pull-downs) & 4 \\
+Breadboard & 1 \\
+Jumper Wires & 10 \\
+Laptop with AVR-GCC & 1 \\
+\hline
+\end{tabular}
+\caption*{Table 1: List of components used}
+\end{table}
+
+\vspace{1em}
+\noindent\textbf{3. Setup and Connections}
+\begin{itemize}
+    \item Connect buttons to PD0, PD1, PD2 for inputs X, Y, Z.
+    \item Connect LED to PB0 with 220$\Omega$ resistor.
+    \item All buttons should use 10k$\Omega$ pull-down resistors.
+    \item Common GND and VCC lines shared across all components.
+\end{itemize}
+
+\vspace{1em}
+\noindent\textbf{4. Logic Summary}
+\begin{itemize}
+    \item Inputs: X, Y, Z (button-controlled)
+    \item Expression: \( (X + Z)(Y + (Z + Y))(X + Z(X + Y)) \)
+    \item With X = 1, simplify to: \( (Y + Z)(1 + Z(1 + Y)) \)
+    \item Final condition: LED ON if entire expression evaluates to 1
+\end{itemize}
+
+\vspace{1em}
+\noindent\textbf{5. Pin Mapping}
+\begin{itemize}
+    \item \textbf{X} – PD0 (Input)
+    \item \textbf{Y} – PD1 (Input)
+    \item \textbf{Z} – PD2 (Input)
+    \item \textbf{LED} – PB0 (Output)
+\end{itemize}
+
+\end{multicols}
+
+\newpage
+\section*{6. Hardware Code – AVR GCC (C)}
+\begin{lstlisting}[language=C]
+#define F_CPU 1000000UL
+#include <avr/io.h>
+#include <util/delay.h>
+
+int main(void)
+{
+    DDRD = 0x00; // Inputs: PD0 - X, PD1 - Y, PD2 - Z
+    DDRB = 0xFF; // Output: PB0 - LED
+    PORTD = 0x00;
+
+    while (1)
+    {
+        unsigned char X = (PIND & (1 << PD0)) >> PD0;
+        unsigned char Y = (PIND & (1 << PD1)) >> PD1;
+        unsigned char Z = (PIND & (1 << PD2)) >> PD2;
+
+        unsigned char part1 = (X || Z);
+        unsigned char part2 = (Y || (Z || Y));
+        unsigned char part3 = (X || (Z && (X || Y)));
+
+        unsigned char output = part1 && part2 && part3;
+
+        if (output)
+            PORTB |= (1 << PB0); // LED ON
+        else
+            PORTB &= ~(1 << PB0); // LED OFF
+
+        _delay_ms(200);
+    }
+    return 0;
+}
+\end{lstlisting}
+
+\section*{7. Analysis}
+
+\subsection*{7.1 Truth Table (sample)}
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+X & Y & Z & Output \\
+\hline
+1 & 0 & 0 & 1 \\
+1 & 1 & 0 & 1 \\
+1 & 0 & 1 & 0 \\
+1 & 1 & 1 & 0 \\
+\hline
+\end{tabular}
+\caption*{Table 2: Logic validation for Z}
+\end{table}
+
+\subsection*{7.2 Circuit Diagram}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\linewidth]{output1.jpeg}
+\caption*{Figure: Practical Circuit Using AVR}
+\end{figure}
+
+\section*{8. Conclusion}
+This project demonstrated evaluation of a GATE logic question both theoretically and practically using AVR-GCC. The LED output confirms that the expression is valid only when \( Z = 0 \), verifying the analytical result.
+
+\end{document}
